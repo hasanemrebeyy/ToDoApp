@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Ana Sayfa{% endblock %}
+
+{%block body %}
+<h1>{{user.username}}</h1>
+{% for todo in all_todo %}
+<h1><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></h1>
+<p>{{todo.content }}</p>
+<small>{{todo.tododate}}</small>
+
+{% endfor %}
+{% endblock %}

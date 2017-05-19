@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Ana Sayfa {% endblock %}</title>
+    {% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'music/base.css' %}">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+            <a class="navbar-brand" href="{% url 'todo:index' %}">Utkucan</a>
+        </div>
+
+        <!-- İtems -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+
+            </ul>
+
+            <!-- Search -->
+            <form class="navbar-form navbar-left" role="search" method="post" action="{% url 'todo:search' %}">
+                                        {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="search" value="" id="search">
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+
+            <li style="color:red;">
+                <span class="glyphicon glyphicon-user"></span> {{user.username}}
+            </li>
+                {% else %}
+                <li style="color:red;">
+                <span class="glyphicon glyphicon-user"></span> Guest
+                </li>
+                {% endif %}
+            </ul>
+
+
+
+        </div>
+
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>
