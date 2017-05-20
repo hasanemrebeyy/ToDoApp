@@ -2,15 +2,53 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {%block body %}
-<h1>{{user.username}}</h1>
-{% for todo in all_todo %}
-<h1><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></h1>
-<p>{{todo.content }}</p>
-<small>{{todo.tododate}}</small>
-{% if todo.publish %}
+<style>
+
+</style>
+<div class="container">
+    <div class="page-header">
+        <h1>Todoların.</h1>
+    </div>
+
+{% for todo in posts %}
+
+<div class="panel panel-warning">
+  <div class="panel-heading">{{todo.title}}</div>
+  <div class="panel-body">
+    {{todo.content}}
+  </div>
+<div class="panel-footer">{{todo.tododate}}
+    {% if todo.publish %}
 <a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
 {% else %}
 <a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 {% endif %}
+</div>
+</div>
 {% endfor %}
+</div>
+
+{% if posts %}
+<div class="container">
+
+    <div class="pagination">
+      <ul class="pagination">
+          {% if posts.has_previous %}
+              <li><a href="?page={{ posts.previous_page_number }}">Previous</a></li>
+          {% endif %}
+          {% for pg in posts.paginator.page_range %}
+              {% if posts.number == pg %}
+                  <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% else %}
+                  <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+              <li><a href="?page={{ posts.next_page_number }}">Next</a></li>
+          {% endif %}
+      </ul>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}

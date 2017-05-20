@@ -1,13 +1,8 @@
 import datetime
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-
-# Create your views here.
-from django.views import generic
-from django.views.generic import CreateView
-
-from accounts.views import login_view
 from todo.forms import TodoForm
 from todo.models import ToDo
 
@@ -18,7 +13,15 @@ def IndexView(request):
     else:
         return redirect('accounts:login')
     all_todo = ToDo.objects.filter(Q(user__username=user.username),Q(publish=True))
-    return render(request, "index.html", {"all_todo":all_todo,"user":user})
+    paginator = Paginator(all_todo, 4)
+    page = request.GET.get('page')
+    try:
+        pg = paginator.page(page)
+    except PageNotAnInteger:
+        pg = paginator.page(1)
+    except EmptyPage:
+        pg = paginator.page(paginator.num_pages)
+    return render(request, "index.html", {"all_todo":all_todo, "user":user, "posts":pg})
 
 
 def DetailToDo(request,id):
@@ -64,5 +67,14 @@ def ProfileView(request):
     else:
         return redirect('accounts:login')
     all_todo = ToDo.objects.filter(user__username=user.username)
-    return render(request, "profile.html", {"all_todo":all_todo, "user":user})
+    paginator = Paginator(all_todo, 4)
+    page = request.GET.get('page')
+    try:
+        pg = paginator.page(page)
+    except PageNotAnInteger:
+        pg = paginator.page(1)
+    except EmptyPage:
+        pg = paginator.page(paginator.num_pages)
+
+    return render(request, "profile.html", {"all_todo":all_todo, "user":user, "posts":pg})
 
