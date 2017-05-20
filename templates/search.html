@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{user.username}}{% endblock %}
+{% block title %}{{search}} - Arama{% endblock %}
 
 {%block body %}
 <style>
@@ -7,26 +7,27 @@
 </style>
 <div class="container">
     <div class="page-header">
-        <h1>Todoların.</h1>
+        <h1>{{search}}</h1>
+        {% if error %}
+        <p>
+            {{error}}
+        </p>
+        {% endif %}
     </div>
 
-{% for todo in posts %}
+{% for todo in all_todo %}
 
 <div class="panel panel-warning">
     <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
   <div class="panel-body">
     {{todo.content}}
   </div>
-<div class="panel-footer">{{todo.tododate}}
-    {% if not todo.done %}
-<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
-{% else %}
-<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-remove"></span></a>
-{% endif %}
+<div class="panel-footer">{{todo.tododate}}<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
 </div>
 </div>
 {% endfor %}
 </div>
+
 
 {% if posts %}
 <div class="container">
@@ -50,5 +51,4 @@
     </div>
 </div>
 {% endif %}
-
 {% endblock %}

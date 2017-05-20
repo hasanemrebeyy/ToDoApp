@@ -7,6 +7,7 @@ app_name="accounts"
 
 urlpatterns=[
 
-    url(r"^$", views.login_view, name="login"),
+    url(r"^login/$", views.login_view, name="login"),
+    url(r"^logout/$", views.logout_view, name="logout"),
 
 ]

@@ -4,8 +4,6 @@
 {%block body %}
 <style>
     body{
-    margin-top:10px;
-    background: #e0e0e0;
 }
 
 .update-nag{
@@ -67,6 +65,19 @@
           </div>
         </div>
 {% endif %}
-<h1>{{todo.title}}</h1>
-<small>{{todo.user}}</small>
+<div class="container col-sm-6 col-md-8">
+<div class="panel panel-warning">
+    <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
+  <div class="panel-body">
+    {{todo.content}}
+  </div>
+<div class="panel-footer">{{todo.tododate}}
+ {% if not todo.done %}
+<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
+{% else %}
+<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+{% endif %}
+</div>
+</div>
+</div>
 {% endblock %}

@@ -20,13 +20,18 @@
                 <span class="icon-bar"></span>
 
             </button>
-            <a class="navbar-brand" href="{% url 'todo:index' %}">Utkucan</a>
+            <a class="navbar-brand" href="{% url 'todo:index' %}">ToDo</a>
         </div>
 
         <!-- İtems -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
+                                {% if user.is_authenticated %}
 
+                        <li style="color:red;">
+                <a href="{% url 'todo:create' %}"> <span class="glyphicon glyphicon-pencil"></span>ToDo Ekle</a>
+            </li>
+                {% endif %}
             </ul>
 
             <!-- Search -->
@@ -44,12 +49,18 @@
             <li style="color:red;">
                 <a href="{% url 'todo:profile' %}"> <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
             </li>
+
+                <li style="color:red;">
+                <a href="{% url 'accounts:logout' %}"> <span class="glyphicon glyphicon-remove"></span>Çıkış</a>
+            </li>
                 {% else %}
 
             <li style="color:red;">
                 <a href="{% url 'accounts:login' %}"> <span class="glyphicon glyphicon-user"></span>Giriş Yap</a>
             </li>
                 {% endif %}
+
+
             </ul>
 
 

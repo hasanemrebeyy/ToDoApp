@@ -13,7 +13,7 @@
 {% for todo in all_todo %}
 
 <div class="panel panel-warning">
-  <div class="panel-heading">{{todo.title}}</div>
+    <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
   <div class="panel-body">
     {{todo.content}}
   </div>
