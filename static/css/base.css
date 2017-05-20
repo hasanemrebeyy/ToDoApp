@@ -1,9 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}{{todo.title}} - Ne Yapsam ?{% endblock %}
-
-{%block body %}
-<style>
-    body{
+body{
     margin-top:10px;
     background: #e0e0e0;
 }
@@ -58,15 +53,3 @@
   padding-left: 45px;
   padding-right: 20px;
 }
-</style>
-{% if todo.publish == False %}
-        <div class="col-md-12">
-          <div class="update-nag">
-            <div class="update-split update-danger"><i class="glyphicon glyphicon-warning-sign"></i></div>
-            <div class="update-text"> <strong>Uyarı</strong> Bu ToDo Yapılmış! </div>
-          </div>
-        </div>
-{% endif %}
-<h1>{{todo.title}}</h1>
-<small>{{todo.user}}</small>
-{% endblock %}

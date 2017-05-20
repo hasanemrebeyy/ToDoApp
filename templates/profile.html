@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Ana Sayfa{% endblock %}
+{% block title %}{{user.username}}{% endblock %}
 
 {%block body %}
 <h1>{{user.username}}</h1>
@@ -7,7 +7,10 @@
 <h1><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></h1>
 <p>{{todo.content }}</p>
 <small>{{todo.tododate}}</small>
+{% if todo.publish %}
 <a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
-
+{% else %}
+<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+{% endif %}
 {% endfor %}
 {% endblock %}

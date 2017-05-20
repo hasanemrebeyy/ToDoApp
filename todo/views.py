@@ -1,4 +1,6 @@
 import datetime
+
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
@@ -15,17 +17,20 @@ def IndexView(request):
         user = request.user
     else:
         return redirect('accounts:login')
-    all_todo = ToDo.objects.filter(user__username=user.username)
+    all_todo = ToDo.objects.filter(Q(user__username=user.username),Q(publish=True))
     return render(request, "index.html", {"all_todo":all_todo,"user":user})
 
+
 def DetailToDo(request,id):
+    if not request.user.is_authenticated():
+        return redirect('accounts:login')
     todo = get_object_or_404(ToDo, id=id)
 
     return render(request, "detail.html", {"todo":todo})
 
 def AddTodo(request):
     if not request.user.is_authenticated():
-        return login_view(request)
+        return redirect('accounts:login')
     if request.method == "POST":
         form = TodoForm(request.POST)
         if form.is_valid():
@@ -39,3 +44,25 @@ def AddTodo(request):
 
 def SearchTodo(request):
     return redirect('todo:index')
+
+def TodoDone(request, id):
+    if not request.user.is_authenticated():
+        return redirect('accounts:login')
+    todo = get_object_or_404(ToDo, id=id)
+    if(todo.done == False):
+        todo.done = True
+        todo.publish = False
+    else:
+        todo.done = False
+        todo.publish = True
+    todo.save()
+    return redirect('todo:detail', id = todo.id)
+
+def ProfileView(request):
+    if request.user.is_authenticated():
+        user = request.user
+    else:
+        return redirect('accounts:login')
+    all_todo = ToDo.objects.filter(user__username=user.username)
+    return render(request, "profile.html", {"all_todo":all_todo, "user":user})
+

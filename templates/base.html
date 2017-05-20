@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Ana Sayfa {% endblock %}</title>
+    <title>{% block title %}ToDo{% endblock %}</title>
     {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'music/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
@@ -42,12 +42,13 @@
                 {% if user.is_authenticated %}
 
             <li style="color:red;">
-                <span class="glyphicon glyphicon-user"></span> {{user.username}}
+                <a href="{% url 'todo:profile' %}"> <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
             </li>
                 {% else %}
-                <li style="color:red;">
-                <span class="glyphicon glyphicon-user"></span> Guest
-                </li>
+
+            <li style="color:red;">
+                <a href="{% url 'accounts:login' %}"> <span class="glyphicon glyphicon-user"></span>Giriş Yap</a>
+            </li>
                 {% endif %}
             </ul>
 

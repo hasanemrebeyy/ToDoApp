@@ -12,6 +12,8 @@ class ToDo(models.Model):
     createdate = models.DateTimeField(auto_now_add=True)
     tododate = models.DateTimeField()
     user = models.ForeignKey("auth.User")
+    done = models.BooleanField(default=False)
+    publish = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.title
