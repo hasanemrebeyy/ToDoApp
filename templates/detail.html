@@ -69,7 +69,9 @@
 <div class="panel panel-warning">
     <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
   <div class="panel-body">
-    {{todo.content}}
+
+    {{todo.content|safe}}
+
   </div>
 <div class="panel-footer">{{todo.tododate}}
  {% if not todo.done %}

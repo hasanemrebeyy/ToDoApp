@@ -15,8 +15,10 @@
 <div class="panel panel-warning">
     <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
   <div class="panel-body">
-    {{todo.content}}
-  </div>
+  {% autoescape on %}
+
+    {{todo.content|safe}}
+                              {% endautoescape %}   </div>
 <div class="panel-footer">{{todo.tododate}}
     {% if not todo.done %}
 <a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>

@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"^", include("todo.urls")),
     url(r"^", include("accounts.urls")),
+    url(r'^markdownx/', include('markdownx.urls')),
 
 ]

@@ -2,9 +2,6 @@
 {% block title %}Ana Sayfa{% endblock %}
 
 {%block body %}
-<style>
-
-</style>
 <div class="container">
     <div class="page-header">
         <h1>Todoların.</h1>
@@ -15,8 +12,10 @@
 <div class="panel panel-warning">
     <div class="panel-heading"><a href="{% url 'todo:detail' todo.id %}">{{todo.title}}</a></div>
   <div class="panel-body">
-    {{todo.content}}
-  </div>
+                               {% autoescape on %}
+
+    {{todo.content | safe}}
+                              {% endautoescape %}  </div>
 <div class="panel-footer">{{todo.tododate}}<a href="{% url 'todo:done' todo.id %}"><span class="glyphicon glyphicon-ok"></span></a>
 </div>
 </div>
@@ -25,7 +24,7 @@
 
 
 {% if posts %}
-<div class="container">
+<div class="contai+ner">
 
     <div class="pagination">
       <ul class="pagination">
